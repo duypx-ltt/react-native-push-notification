@@ -32,6 +32,9 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
     private final Random mRandomNumberGenerator = new Random(System.currentTimeMillis());
     private RNPushNotificationJsDelivery mJsDelivery;
 
+    public static Promise mPromise;
+    public static WritableMap mParams;
+
     public RNPushNotification(ReactApplicationContext reactContext) {
         super(reactContext);
 
@@ -146,9 +149,11 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
                 bundle.putBoolean("foreground", false);
                 String bundleString = mJsDelivery.convertJSON(bundle);
                 params.putString("dataJSON", bundleString);
+                mPromise = promise;
+                mParams = params;
             }
         }
-        promise.resolve(params);
+        // promise.resolve(params);
     }
 
     @ReactMethod
